@@ -157,7 +157,7 @@
 
                 let childrens = $(`li[data-parent='${path}']`)
                 for (let i = 0; i < childrens.length; i++) {
-                    let childPath = $(childrens.get(0)).attr('data-path')
+                    let childPath = $(childrens.get(i)).attr('data-path')
                     $(`li[data-parent='${childPath}']`).addClass('hidden')
                 }
                 
