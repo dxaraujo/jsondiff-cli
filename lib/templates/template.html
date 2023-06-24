@@ -166,6 +166,13 @@
                 $(`li[data-parent='${path}'] > span[data-path$='-closed']`).addClass('hidden')
                 $(`li[data-parent='${path}'] > span[data-path$='-open']`).addClass('hidden')
 
+                if (parent === undefined) {
+                    $(".vtv__code").hide();
+                    $(`div[data-path='/']`).show()
+                    $(`div[data-path='/']`).scrollTop(0)
+                    $(`.vtv__code-path`).text('/')
+                }
+
             } else {
 
                 $(this).attr('data-display', 'true')
