@@ -7,6 +7,9 @@
 	"main": "index.js",
 	"files": [
 		"lib/*.js",
+		"lib/templates/*.html",
+		"lib/templates/*.css",
+		"lib/templates/*.svg",
 		"index.js"
 	],
 	"bin": "index.js",
@@ -14,6 +17,9 @@
 		"axios": "^1.4.0",
 		"chalk": "4.1.0",
 		"commander": "^10.0.1",
-		"dotenv": "^16.1.4"
+		"diff": "^5.1.0",
+		"diff2html": "^3.4.35",
+		"dotenv": "^16.1.4",
+		"jsdom": "^22.1.0"
 	}
 }

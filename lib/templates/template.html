@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Concal</title>
+    <meta name="title" content="Concal">
+    <meta name="description" content="Comparador visual de arquivos HTML">
+    <meta name="author" content="Daniel Xavier Araújo">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/diff2html/bundles/css/diff2html.min.css" />
+    <style>
+        html {
+            height: 100vh;
+            width: 100vw;
+            margin: 0px;
+            padding: 0px;
+        }
+        body {
+            background-color: #005CA3;
+            font-size: 16px;
+            height: calc(100vh - 100px);
+            margin: 50px;
+        }
+        .hidden {
+            display: none !important;
+        }
+        a:link,
+        a:visited {
+            color: #F9DC5C
+        }
+        h1 {
+            font-size: 36px
+        }
+        main.content {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        .vtv-root {
+            display: flex;
+            flex-flow: row nowrap;
+            align-items: stretch;
+            justify-content: flex-start;
+            width: 100%;
+            min-width: 250px;
+            font-size: 16px;
+            font-family: monospace;
+            border-radius: 5px
+        }
+        .vtv__code-panel {
+            display: flex;
+            flex: 1;
+            flex-flow: column nowrap;
+            align-items: stretch;
+            justify-content: flex-start;
+            height: 100%;
+            overflow: hidden;
+        }
+        .vtv__code-panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            height: 30px;
+            padding: 5px 10px;
+            color: #EBEDEF;
+            background-color: #525154
+        }
+        .vtv__code-path {
+            flex-grow: 1;
+            overflow-x: auto;
+            line-height: 30px;
+            white-space: nowrap
+        }
+        .vtv__code {
+            height: 100%;
+            padding: 50px;
+            overflow-y: auto;
+            background: white;
+        }
+        .vtv__tree {
+            box-sizing: border-box;
+            min-width: 200px;
+            width: 200px;
+            height: auto;
+            margin: 0;
+            padding: 20px 0;
+            overflow-x: auto;
+            color: #000;
+            white-space: nowrap;
+            background-color: #EBEDEF
+        }
+        .vtv__tree-node {
+            display: flex;
+            align-items: stretch;
+            justify-content: flex-start;
+            box-sizing: border-box;
+            height: 30px;
+            margin: 0;
+            padding: 6px 0;
+            cursor: pointer
+        }
+        .vtv__tree-node:hover {
+            background-color: #DBDDE0
+        }
+        .vtv__tree-node span {
+            line-height: 18px
+        }
+        .vtv__tree-node svg {
+            margin-right: 7px
+        }
+        .vtv__tree-node--file.selected {
+            background-color: #DBDDE0
+        }
+        .d2h-code-side-linenumber {
+            position: relative;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.0.slim.min.js"
+        integrity="sha256-tG5mcZUtJsZvyKAxYLVXrmjKBVLd6VpVccqz/r4ypFE=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <main class="content">
+        <div class="vtv-root">
+            <ul class="vtv__tree">
+            </ul>
+            <section class="vtv__code-panel">
+                <div class="vtv__code-panel-header">
+                    <div id="code-path" class="vtv__code-path">/</div>
+                </div>
+                <div data-path="/" class="vtv__code" tabindex="-1">
+                </div>
+            </section>
+        </div>
+    </main>
+</body>
+<script>
+
+    $("li[data-path='/']").removeClass('hidden')
+    $("span[data-path='/-closed']").removeClass('hidden')
+
+    $("li").click(function () {
+        let type = $(this).attr('data-type')
+        let path = $(this).attr('data-path')
+        let parent = $(this).attr('data-parent')
+        let display = $(this).attr('data-display')
+        console.log(`OnClick type=${type}, path=${path}, parent=${parent}, display=${display}`)
+        if (type === 'folder') {
+            if (display === 'true') {
+
+                $(this).attr('data-display', 'false')
+                $(`span[data-path='${path}-open']`).addClass('hidden')
+                $(`span[data-path='${path}-closed']`).removeClass('hidden')
+
+                let childrens = $(`li[data-parent='${path}']`)
+                for (let i = 0; i < childrens.length; i++) {
+                    let childPath = $(childrens.get(0)).attr('data-path')
+                    $(`li[data-parent='${childPath}']`).addClass('hidden')
+                }
+                
+                $(`li[data-parent='${path}']`).addClass('hidden')
+                $(`li[data-parent='${path}']`).attr('data-display', 'false')
+                $(`li[data-parent='${path}'] > span[data-path$='-closed']`).addClass('hidden')
+                $(`li[data-parent='${path}'] > span[data-path$='-open']`).addClass('hidden')
+
+            } else {
+
+                $(this).attr('data-display', 'true')
+                $(`span[data-path='${path}-open']`).removeClass('hidden')
+                $(`span[data-path='${path}-closed']`).addClass('hidden')
+
+                $(`li[data-parent='${path}']`).removeClass('hidden')
+                $(`li[data-parent='${path}'] > span[data-path$='-closed']`).removeClass('hidden')
+                $(`li[data-parent='${path}'] > span[data-path$='-open']`).addClass('hidden')
+            }
+        } else {
+            $(".vtv__tree-node--file").removeClass('selected')
+            $(this).addClass('selected')
+
+            $(".vtv__code").hide();
+            $(`div[data-path='${path}']`).show()
+            $(`div[data-path='${path}']`).scrollTop(0)
+            $(`.vtv__code-path`).text(path)
+        }
+    });
+</script>
+
+</html>

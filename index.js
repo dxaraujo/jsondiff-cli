@@ -6,6 +6,7 @@ const { Command, Option } = require('commander')
 const cws = require('./lib/cws')
 const java = require('./lib/java')
 const diff = require('./lib/diff')
+const htmlDiff = require('./lib/htmlDiff')
 
 const program = new Command()
 
@@ -44,6 +45,17 @@ program.command('diff')
 	.option('-i, --ignoreJavaMissingValues', 'Ignora a comparação quando a propriedade não é encontrada no arquivo Java', false)
 	.action((args) => {
 		diff(args)
+	})
+
+program.command('htmlDiff')
+	.description('Realiza a comparação entre arquivos Java e CWS e retorna em formato HTML')
+	.option('-n, --nbs <string...>', 'Benefícios que serão comparados', undefined)
+	.addOption(new Option('-t, --type <string>', 'Realiza a comparação pelo tipo informado').choices(['dados', 'memoria1', 'memoria2', 'memoria3']))
+	.option('-c, --cwsDir <string>', 'Diretório onde os Json\'s CWS serão lidos', 'cws')
+	.option('-j, --javaDir <string>', 'Diretório onde os Json\'s JAVA serão lidos', 'java')
+	.option('-d, --diffDir <string>', 'Diretório de onde o(s) arquivo(s) de diferença(s) serão gravado(s)', 'diff')
+	.action((args) => {
+		htmlDiff(args)
 	})
 
 program.parse(process.argv)
