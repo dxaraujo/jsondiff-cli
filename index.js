@@ -53,7 +53,7 @@ program.command('htmlDiff')
 	.addOption(new Option('-t, --type <string>', 'Realiza a comparação pelo tipo informado').choices(['dados', 'memoria1', 'memoria2', 'memoria3']))
 	.option('-c, --cwsDir <string>', 'Diretório onde os Json\'s CWS serão lidos', 'cws')
 	.option('-j, --javaDir <string>', 'Diretório onde os Json\'s JAVA serão lidos', 'java')
-	.option('-d, --diffDir <string>', 'Diretório de onde o(s) arquivo(s) de diferença(s) serão gravado(s)', 'diff')
+	.option('-d, --diffDir <string>', 'Diretório de onde o(s) arquivo(s) de diferença(s) serão gravado(s)', 'htmlDiff')
 	.action((args) => {
 		htmlDiff(args)
 	})
