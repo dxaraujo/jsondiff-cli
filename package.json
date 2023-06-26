@@ -8,8 +8,8 @@
 	"files": [
 		"lib/*.js",
 		"lib/templates/*.html",
-		"lib/templates/*.css",
 		"lib/templates/*.svg",
+		"lib/templates/.env",
 		"index.js"
 	],
 	"bin": "index.js",

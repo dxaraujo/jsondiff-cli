@@ -3,6 +3,7 @@
 require('dotenv').config()
 const { Command, Option } = require('commander')
 
+const init = require('./lib/init')
 const cws = require('./lib/cws')
 const java = require('./lib/java')
 const diff = require('./lib/diff')
@@ -56,6 +57,13 @@ program.command('htmlDiff')
 	.option('-d, --diffDir <string>', 'Diretório de onde o(s) arquivo(s) de diferença(s) serão gravado(s)', 'htmlDiff')
 	.action((args) => {
 		htmlDiff(args)
+	})
+
+program.command('init')
+	.description('Realiza a criação da pasta e do arquivos de variáveis de ambientte')
+	.option('-d, --dir <string>', 'Diretório onde o programa será executado', 'concal')
+	.action((args) => {
+		init(args)
 	})
 
 program.parse(process.argv)
