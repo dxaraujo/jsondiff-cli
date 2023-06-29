@@ -7,7 +7,8 @@
     <meta name="title" content="Concal">
     <meta name="description" content="Comparador visual de arquivos HTML">
     <meta name="author" content="Daniel Xavier Araújo">
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/diff2html/bundles/css/diff2html.min.css" />
+    <link rel="stylesheet" type="text/css"
+        href="https://cdn.jsdelivr.net/npm/diff2html/bundles/css/diff2html.min.css" />
     <style>
         html {
             height: 100vh;
@@ -17,10 +18,12 @@
         }
 
         body {
-            background-color: #005CA3;
+            background: rgb(23,106,198);
+            background: linear-gradient(315deg, rgba(23,106,198,1) 25%, rgba(0,78,163,1) 84%); 
             font-size: 16px;
             height: calc(100vh - 100px);
-            margin: 50px;
+            margin: 0px;
+            padding: 50px;
         }
 
         .hidden {
@@ -33,13 +36,17 @@
         }
 
         h1 {
-            font-size: 36px
+            color: white;
+            font-size: 30px;
+            font-family: monospace;
+            height: 35px;
+            margin-top: 0px;
+            margin-bottom: 15px;
         }
 
         main.content {
             display: flex;
-            width: 100%;
-            height: 100%;
+            height: calc(100vh - 150px);
             overflow: hidden;
         }
 
@@ -138,6 +145,7 @@
 </head>
 
 <body>
+    <h1 class="h1">CONCAL - UTIL</h1>
     <main class="content">
         <div class="vtv-root">
             <ul class="vtv__tree">
@@ -207,7 +215,7 @@
             $(".vtv__tree-node--file").removeClass('selected')
             $(this).addClass('selected')
 
-            $("iframe").attr('src',`${path.substring(1)}.html`)
+            $("iframe").attr('src', `${path.substring(1)}.html`)
             $(`.vtv__code-path`).text(path)
         }
     });
