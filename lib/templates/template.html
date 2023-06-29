@@ -155,8 +155,14 @@
 </body>
 <script>
 
+    // Abrindo a pasta root
     $("li[data-path='/']").removeClass('hidden')
-    $("span[data-path='/-closed']").removeClass('hidden')
+    $("li[data-path='/']").attr('data-display', 'true')
+    $("span[data-path='/-open']").removeClass('hidden')
+
+    //Exibindo a lista de NB's
+    $("li[data-parent='/']").removeClass('hidden')
+    $(`li[data-parent='/'] > span[data-path$='-closed']`).removeClass('hidden')
 
     $("li").click(function () {
         let type = $(this).attr('data-type')

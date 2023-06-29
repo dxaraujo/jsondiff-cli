@@ -8,6 +8,7 @@ const cws = require('./lib/cws')
 const java = require('./lib/java')
 const diff = require('./lib/diff')
 const htmlDiff = require('./lib/htmlDiff')
+const server = require('./lib/server')
 
 const program = new Command()
 
@@ -15,6 +16,13 @@ program
 	.name('concal-util')
 	.description('Programa utilitário para geração e comparação de arquivos gerados pelo CWS e Java')
 	.version('0.0.1')
+
+program.command('init')
+	.description('Realiza a criação da pasta e do arquivos de variáveis de ambientte')
+	.option('-d, --dir <string>', 'Diretório onde o programa será executado', 'concal')
+	.action((args) => {
+		init(args)
+	})
 
 program.command('cws')
 	.description('Realiza a geração dos arquivos CWS para os NB\'s informados')
@@ -59,11 +67,12 @@ program.command('htmlDiff')
 		htmlDiff(args)
 	})
 
-program.command('init')
-	.description('Realiza a criação da pasta e do arquivos de variáveis de ambientte')
-	.option('-d, --dir <string>', 'Diretório onde o programa será executado', 'concal')
+program.command('server')
+	.description('Cria um servidor para os arquivos criados no htmlDiff')
+	.option('-p, --port <string>', 'Porta que o seervidor será executado', '8081')
+	.option('-d, --dir <string>', 'Diretório de onde onde serão lidos os arquivos html', 'htmlDiff')
 	.action((args) => {
-		init(args)
+		server(args)
 	})
 
 program.parse(process.argv)
