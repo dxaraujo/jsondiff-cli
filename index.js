@@ -1,6 +1,7 @@
 #! /usr/bin/env node
-
-require('dotenv').config()
+const path = require('path')
+require('dotenv').config({ path: path.resolve('./.env') })
+// require('dotenv').config()
 const { Command, Option } = require('commander')
 
 const init = require('./lib/init')

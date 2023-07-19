@@ -1,6 +1,6 @@
 {
 	"name": "jsondiff",
-	"version": "0.0.3",
+	"version": "0.0.5",
 	"description": "Progama utilitário para geração e comparação de arquivos json's",
 	"license": "Apache-2.0",
 	"author": "Daniel Xavier Araújo",
